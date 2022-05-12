@@ -18,46 +18,47 @@ parameters{
 stages{
  stage('Checkout') {
     steps {
-     git credentialsId: 'Give Your Credential ID', url: 'https://github.com/YourAcc/YourRepoName.git/', branch: 'Branch on which you want to set the CI'
+  #   git credentialsId: 'Give Your Credential ID', url: 'https://github.com/dxa1005/samples.git/', branch: 'main'
+      git url: 'https://github.com/dxa1005/samples.git/', branch: 'main'
      }
   }
 
 
 stage('Restore packages'){
    steps{
-      bat "dotnet restore YourProjectPath\\Your_Project.csproj"
+      bat "dotnet restore ./samples/aspnetcore/blazor/BinarySubmit/BinarySubmit.csproj"
      }
   }
 
 
 stage('Clean'){
     steps{
-        bat "dotnet clean YourProjectPath\\Your_Project.csproj"
+        bat "dotnet clean ./samples/aspnetcore/blazor/BinarySubmit/BinarySubmit.csproj"
      }
    }
 
 
 stage('Build'){
    steps{
-      bat "dotnet build YourProjectPath\\Your_Project.csproj --configuration Release"
+      bat "dotnet build ./samples/aspnetcore/blazor/BinarySubmit/BinarySubmit.csproj --configuration Release"
     }
  }
 
 stage('Test: Unit Test'){
    steps {
-     bat "dotnet test YourProjectPath\\UnitTest_Project.csproj"
+     bat "dotnet test ./samples/aspnetcore/blazor/BinarySubmit/BinarySubmit.csproj"
      }
   }
        
  stage('Test: Integration Test'){
     steps {
-       bat "dotnet test ProjectPath\\IntegrateTest_Project.csproj"
+       bat "dotnet test ./samples/aspnetcore/blazor/BinarySubmit/BinarySubmit.csproj"
       }
    }
 
 stage('Publish'){
      steps{
-       bat "dotnet publish YourProjectPath\\Your_Project.csproj "
+       bat "dotnet publish ./samples/aspnetcore/blazor/BinarySubmit/BinarySubmit.csproj "
      }
 }
 
@@ -68,28 +69,18 @@ stage('Deploy to Azure (DEV)') {
 		azureWebAppPublish azureCredentialsId: params.AZURE_CREDENTIAL_ID, 
 		resourceGroup: params.RESOURCE_GROUP, 
 		appName: params.APP_NAME_DEV, 
-		sourceDirectory: "MyBudget/bin/Release/netcoreapp2.2/publish/"
+		sourceDirectory: "samples/aspnetcore/blazor/BinarySubmit/"
 	}
 }
 
-stage('Deploy to Azure (PROD)') {  
-	steps {
-		input 'Do you approve deployment to PRO?'
-		
-		azureWebAppPublish azureCredentialsId: params.AZURE_CREDENTIAL_ID, 
-		resourceGroup: params.RESOURCE_GROUP, 
-		appName: params.APP_NAME_PROD, 
-		sourceDirectory: "MyBudget/bin/Release/netcoreapp2.2/publish/"
-	}
-}        
 
 }
 
 post{
   always{
-    emailext body: "${currentBuild.currentResult}: Job   ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-    recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-    subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+   # emailext body: "${currentBuild.currentResult}: Job   ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+   # recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+   # subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
     }
   }
  } 
