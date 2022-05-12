@@ -7,9 +7,9 @@ pipeline{
         
  
 parameters{
-  string defaultValue: description: 'Please input the Voya application name prod', name:appmig1105-wapp, trim: true
-  string defaultValue: description: 'Please input the Voya resource group name', name:app-mig-rg, trim: true
-  string defaultValue: description: 'Please input the Voya App service Credential ID', name:2d2f128b-74f6-452c-8e6d-b913ba1f29c3, trim: true
+  string defaultValue: '', description: 'Please input the Voya application name prod', name:appmig1105-wapp, trim: true
+  string defaultValue: '', description: 'Please input the Voya resource group name', name:app-mig-rg, trim: true
+  string defaultValue: '', description: 'Please input the Voya App service Credential ID', name:2d2f128b-74f6-452c-8e6d-b913ba1f29c3, trim: true
  }
 
 stages{
