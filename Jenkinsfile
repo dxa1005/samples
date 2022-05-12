@@ -5,14 +5,11 @@ pipeline{
         dotnet ='C:\\Program Files (x86)\\dotnet\\'
         }
         
-    triggers {
-        pollSCM 'H * * * *'
-    }
  
 parameters{
-  string defaultValue: description: 'Please input the Voya' application name prod', name:APP_NAME_PROD, trim: true
-  string defaultValue: description: 'Please input the Voya' resource group name', name:RESOURCE_GROUP, trim: true
-  string defaultValue: description: 'Please input the Voya' App service Credential ID', name:AZURE_CREDENTIAL_ID, trim: true
+  string defaultValue: description: 'Please input the Voya' application name prod', name:appmig1105-wapp, trim: true
+  string defaultValue: description: 'Please input the Voya' resource group name', name:app-mig-rg, trim: true
+  string defaultValue: description: 'Please input the Voya' App service Credential ID', name:2d2f128b-74f6-452c-8e6d-b913ba1f29c3, trim: true
  }
 
 stages{
