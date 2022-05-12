@@ -15,7 +15,6 @@ parameters{
 stages{
  stage('Checkout') {
     steps {
-  #   git credentialsId: 'Give Your Credential ID', url: 'https://github.com/dxa1005/samples.git/', branch: 'main'
       git url: 'https://github.com/dxa1005/samples.git/', branch: 'main'
      }
   }
@@ -75,9 +74,6 @@ stage('Deploy to Azure (DEV)') {
 
 post{
   always{
-   # emailext body: "${currentBuild.currentResult}: Job   ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-   # recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-   # subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
     }
   }
  } 
