@@ -16,6 +16,7 @@ stages{
  stage('Checkout') {
     steps {
       git url: 'https://github.com/dxa1005/samples.git/', branch: 'main'
+	    sh 'echo "$AZURE_CREDENTIAL_ID"'
      }
   }
 
