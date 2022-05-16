@@ -7,7 +7,7 @@ pipeline{
         
  
 parameters{
-  string defaultValue: '', description: 'Please input the Voya application name prod', name:'APP_NAME_PROD', trim: true
+  string defaultValue: '', description: 'Please input the Voya application name prod', name:'APP_NAME', trim: true
   string defaultValue: '', description: 'Please input the Voya resource group name', name:'RESOURCE_GROUP', trim: true
   string defaultValue: '', description: 'Please input the Voya App service Credential ID', name:'AZURE_CREDENTIAL_ID', trim: true
  }
@@ -64,7 +64,7 @@ stage('Deploy to Azure (DEV)') {
 	steps {
 		azureWebAppPublish azureCredentialsId: params.AZURE_CREDENTIAL_ID, 
 		resourceGroup: params.RESOURCE_GROUP, 
-		appName: params.APP_NAME_DEV, 
+		appName: params.APP_NAME, 
 		sourceDirectory: "samples/aspnetcore/blazor/BinarySubmit/bin/Debug/net5.0/publish"
 	}
 }
